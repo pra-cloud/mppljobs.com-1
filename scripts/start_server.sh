@@ -1,5 +1,6 @@
 #!/bin/bash
 
+#apt install jq -y
 #cd /var/www/html/pipelinetesting/
 cd /var/www/html/
 c=$(ls -l /var/www/html/ | grep "^d" | wc -l)
@@ -13,7 +14,7 @@ do
 	if [ $type == react ]
 	then
 		portno=`jq -r  .port_number  ${arr1[$i]}/deploy.json`
-		cd ${arr[i]}
+		cd ${arr1[i]}
 		npm i
 		npm run-script build
 		pm2 serve build $portno --spa
@@ -21,7 +22,7 @@ do
 	elif [ $type == node ]
 	then
 		filename=`jq -r  .file_name  ${arr1[$i]}/deploy.json`
-		cd ${arr[$i]}
+		cd ${arr1[$i]}
 		npm i
 		pm2 start $filename
 		cd
