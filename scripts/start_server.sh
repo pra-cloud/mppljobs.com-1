@@ -6,8 +6,8 @@ c=$(ls -l /var/www/html/ | grep "^d" | wc -l)
 
 
 arr1=(/var/www/html/*/) 
-total=${!arr1[@]}
-for (( i=0; i<total; i++ ))
+total=${#arr1[@]}
+for (( i=0; i<$total; i++ ))
 do
 	type=`jq -r .deployment_type ${arr1[$i]}/deploy.json`
 	if [ $type == react ]
